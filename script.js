@@ -1,5 +1,3 @@
-/////Connect Four app by Chris Jones 2022/////
-
 'use strict';
 
 // Selecting elements
@@ -257,3 +255,5 @@ document.addEventListener('keydown', function (e) {
     closeInfo();
   }
 });
+
+/////Connect Four app by Chris Jones 2022/////
