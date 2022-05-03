@@ -1,3 +1,5 @@
 #Connect four project
 
-Connect four game application.
+A connect four style game application.
+
+The app automatically checks for a winner and keeps score.

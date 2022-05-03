@@ -185,7 +185,7 @@ body {
   padding: 0.2rem 1rem;
   border-radius: 50rem;
   box-shadow: 0 1rem 2rem #26272e;
-  cursor: pointer;
+  cursor: help;
   transition: all 0.2s;
   opacity: 0.6;
 }
@@ -249,4 +249,19 @@ body {
 .hidden {
   visibility: hidden;
   opacity: 0;
+}
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+  color: #343333;
+  font-size: 3.25rem;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+a:hover {
+  color: #343333;
+  text-decoration: underline;
+  cursor: pointer;
 }
