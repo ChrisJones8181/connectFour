@@ -185,7 +185,7 @@ body {
   padding: 0.2rem 1rem;
   border-radius: 50rem;
   box-shadow: 0 1rem 2rem #26272e;
-  cursor: help;
+  cursor: pointer;
   transition: all 0.2s;
   opacity: 0.6;
 }
