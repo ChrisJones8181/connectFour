@@ -171,16 +171,22 @@ body {
 
 /* Info panel */
 .btn-info {
-  font-family: inherit;
-  font-weight: bold;
-  color: #1e1f25;
   position: absolute;
   top: 0.5rem;
   right: 2rem;
   font-size: 4rem;
-  cursor: pointer;
-  border: none;
+  color: #343333;
+  font-family: inherit;
+  font-weight: 400;
   background: none;
+  border: none;
+  background-color: #a1a3b2;
+  padding: 0.2rem 1rem;
+  border-radius: 50rem;
+  box-shadow: 0 1rem 2rem #26272e;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.6;
 }
 
 .info-panel {
