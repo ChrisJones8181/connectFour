@@ -22,7 +22,7 @@ body {
   place-items: center;
 }
 .page-container {
-  max-height: 86%;
+  max-height: 84%;
   min-width: max-content;
   display: grid;
   place-items: center;
@@ -171,10 +171,10 @@ body {
 
 /* Info panel */
 .btn-info {
-  position: absolute;
+  position: fixed;
   top: 1%;
   right: 1%;
-  font-size: 4rem;
+  font-size: 3rem;
   color: #343333;
   font-family: inherit;
   font-weight: 400;
