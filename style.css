@@ -23,8 +23,7 @@ body {
 }
 .page-container {
   max-height: 86%;
-  /* min-width: min-content; */
-  max-width: 96%;
+  min-width: max-content;
   display: grid;
   place-items: center;
   grid-template-areas:
