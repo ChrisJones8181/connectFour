@@ -15,10 +15,7 @@ body {
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
   height: 100vh;
-
-  /* background: linear-gradient(to bottom right, #16222a, #3a6073); */
-  background: linear-gradient(to bottom right, #093028, #237a57);
-
+  background: linear-gradient(to bottom right, #16222a, #3a6073);
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: grid;
