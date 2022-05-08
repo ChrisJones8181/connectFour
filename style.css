@@ -32,7 +32,7 @@ body {
   gap: 6rem;
 }
 
-/* Player score boards */
+/* Player score boards  */
 .player_1 {
   grid-area: player_1;
   color: #343333;
