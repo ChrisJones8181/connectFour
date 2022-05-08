@@ -256,4 +256,4 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-/////Connect Four app by Chris Jones 2022 /////
+/////Connect Four app by Chris Jones 2022/////
