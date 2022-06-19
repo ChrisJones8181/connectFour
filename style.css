@@ -189,7 +189,8 @@ body {
   opacity: 0.6;
 }
 
-.info-panel {
+.info-panel,
+.draw-panel {
   position: fixed;
   font-family: inherit;
   color: #343333;

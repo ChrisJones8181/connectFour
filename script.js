@@ -4,6 +4,7 @@
 const btnInfo = document.querySelector('.btn-info');
 const infoPanel = document.querySelector('.info-panel');
 const btnCloseInfo = document.querySelector('.btn-close-info');
+const drawPanel = document.querySelector('.draw-panel');
 const overlay = document.querySelector('.overlay');
 const btnNew = document.querySelector('.btn-new');
 const player1 = document.querySelector('.player_1');
@@ -38,16 +39,28 @@ let activePlayer = 1;
 let gameActive = true;
 let winCoords = [];
 let playerScore = [0, 0];
+let playBot = true; // Need to add a radio button for this in UI
 
 // Listen for which column is clicked
 colArr.forEach(function (element) {
   element.addEventListener('click', function () {
-    if (gameActive === true) {
-      const colClick = +element.className.slice(-1); // Return column number
+    const colClick = +element.className.slice(-1); // Return column number
+    if (gameGrid[0][colClick] === 0) {
+      // Check there is at least one space in the column
+      if (gameActive === true) {
+        addCounter(colClick);
+        checkWin();
+        switchPlayer();
 
-      addCounter(colClick);
-      checkWin();
-      switchPlayer();
+        // Get bot to place a counter if it's turned on
+        if (playBot === true && gameActive === true) {
+          setTimeout(function () {
+            botAction();
+            checkWin();
+            switchPlayer();
+          }, 1000);
+        }
+      }
     }
   });
 });
@@ -56,6 +69,239 @@ colArr.forEach(function (element) {
 btnNew.addEventListener('click', function () {
   newGame();
 });
+
+const botAction = function () {
+  let target = 0; // The column to place the counter in
+  let actionTaken = false; // Status of this function to allow only one action
+  // Check for 3 opisition counters in a row horizontally and block a fourth
+  for (let i = 0; i < gameGrid.length; i++) {
+    for (let j = 0; j < 7; j++) {
+      // Check there are 3 opposition counters in a row
+      if (
+        gameGrid[i][j] === 1 &&
+        gameGrid[i][j + 1] === 1 &&
+        gameGrid[i][j + 2] === 1
+      ) {
+        // Add a counter to the right if there is space in the grid
+        if (gameGrid[i][j + 3] === 0 && j <= 3) {
+          target = j + 3;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+        // Add a counter to the left if there is no space to the right
+        if (gameGrid[i][j - 1] === 0) {
+          target = j - 1;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 opisition counters in a row vertically and block a fourth
+  if (actionTaken === false) {
+    for (let col = 0; col < gameGrid[1].length; col++) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 1 &&
+          gameGrid[row - 1][col] === 1 &&
+          gameGrid[row - 2][col] === 1 &&
+          gameGrid[row - 3][col] === 0
+        ) {
+          target = col;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 opposition counters in a row diagonally from left to right and block a fourth
+  if (actionTaken === false) {
+    for (let col = 0; col < 4; col++) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 1 &&
+          gameGrid[row - 1][col + 1] === 1 &&
+          gameGrid[row - 2][col + 2] === 1 &&
+          gameGrid[row - 3][col + 3] === 0 &&
+          gameGrid[row - 2][col + 3] !== 0
+        ) {
+          target = col + 3;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 opposition counters in a row diagonally from right to left and block a fourth
+  if (actionTaken === false) {
+    for (let col = 6; col > 2; col--) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 1 &&
+          gameGrid[row - 1][col - 1] === 1 &&
+          gameGrid[row - 2][col - 2] === 1 &&
+          gameGrid[row - 3][col - 3] === 0 &&
+          gameGrid[row - 2][col - 3] !== 0
+        ) {
+          target = col - 3;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 bot counters in a row vertically and add a fourth
+  if (actionTaken === false) {
+    for (let col = 0; col < gameGrid[1].length; col++) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 2 &&
+          gameGrid[row - 1][col] === 2 &&
+          gameGrid[row - 2][col] === 2 &&
+          gameGrid[row - 3][col] === 0
+        ) {
+          target = col;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 bot counters in a row horizontally and add a fourth
+  if (actionTaken === false) {
+    for (let i = 0; i < gameGrid.length; i++) {
+      for (let j = 0; j < 7; j++) {
+        // Check there are 3 opposition counters in a row
+        if (
+          gameGrid[i][j] === 2 &&
+          gameGrid[i][j + 1] === 2 &&
+          gameGrid[i][j + 2] === 2
+        ) {
+          // Add a counter to the right if there is space in the grid
+          if (gameGrid[i][j + 3] === 0 && j <= 3) {
+            target = j + 3;
+            actionTaken = true;
+            addCounter(target);
+            break;
+          }
+          // Add a counter to the left if there is no space to the right
+          if (gameGrid[i][j - 1] === 0) {
+            target = j - 1;
+            actionTaken = true;
+            addCounter(target);
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  // Check for 3 bot counters in a row diagonally from left to right and add a fourth
+  if (actionTaken === false) {
+    for (let col = 0; col < 4; col++) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 2 &&
+          gameGrid[row - 1][col + 1] === 2 &&
+          gameGrid[row - 2][col + 2] === 2 &&
+          gameGrid[row - 3][col + 3] === 0 &&
+          gameGrid[row - 2][col + 3] !== 0
+        ) {
+          target = col + 3;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 3 bot counters in a row diagonally from right to left and add a fourth
+  if (actionTaken === false) {
+    for (let col = 6; col > 2; col--) {
+      for (let row = 5; row > 2; row--) {
+        if (
+          gameGrid[row][col] === 2 &&
+          gameGrid[row - 1][col - 1] === 2 &&
+          gameGrid[row - 2][col - 2] === 2 &&
+          gameGrid[row - 3][col - 3] === 0 &&
+          gameGrid[row - 2][col - 3] !== 0
+        ) {
+          target = col - 3;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 2 bot counters with a gap between them horizontally and add a counter in the gap
+  if (actionTaken === false) {
+    for (let i = 0; i < gameGrid.length; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (
+          gameGrid[i][j] === 2 &&
+          gameGrid[i][j + 1] === 0 &&
+          gameGrid[i][j + 2] === 2
+        ) {
+          target = j + 1;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Check for 2 opposition counters with a gap between them horizontally and add a counter in the gap
+  if (actionTaken === false) {
+    for (let i = 0; i < gameGrid.length; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (
+          gameGrid[i][j] === 1 &&
+          gameGrid[i][j + 1] === 0 &&
+          gameGrid[i][j + 2] === 1
+        ) {
+          target = j + 1;
+          actionTaken = true;
+          addCounter(target);
+          break;
+        }
+      }
+    }
+  }
+
+  // Place a random counter if no other action taken
+  if (actionTaken === false) {
+    randAction();
+  }
+};
+
+// Function for bot to place a random counter
+const randAction = function () {
+  let target = Math.floor(Math.random() * 7);
+  // Check there is space for a counter, if not, end game
+  if (!gameGrid[0].includes(0)) {
+    gameActive = false;
+  }
+  if (gameGrid[0][target] === 0) {
+    addCounter(target);
+  } else if (gameActive === true) {
+    randAction();
+  }
+};
 
 // Add a counter in the game grid
 const addCounter = function (col) {
@@ -68,13 +314,16 @@ const addCounter = function (col) {
     row = i;
     break;
   }
+  // Check the column isn't already full of counters
   if (gameGrid[0][col] === 0) {
-    // Check the column isn't already full of counters
-    gameGrid[row][col] = activePlayer; // Add the player's counter to the correct grid coordinate
+    // Add the player's counter to the correct grid coordinate
+    gameGrid[row][col] = activePlayer;
+
+    // Add the counter graphic in UI
+    document
+      .getElementById(`${col}${row}`)
+      .classList.replace('counter_0', `counter_${activePlayer}`);
   }
-  document
-    .getElementById(`${col}${row}`)
-    .classList.replace('counter_0', `counter_${activePlayer}`); // Add the counter graphic in UI
 };
 
 const switchPlayer = function () {
@@ -230,6 +479,13 @@ const newGame = function () {
   player1.classList.remove('fade');
   player2.classList.remove('fade');
   gameActive = true;
+  if (playBot === true && activePlayer === 2) {
+    setTimeout(function () {
+      botAction();
+      checkWin();
+      switchPlayer();
+    }, 1000);
+  }
 };
 
 // Open and close the info panel in the UI
@@ -255,5 +511,16 @@ document.addEventListener('keydown', function (e) {
     closeInfo();
   }
 });
+
+// Open draw panel
+const openDraw = function () {
+  drawPanel.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+const closeDraw = function () {
+  drawPanel.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
 
 /////Connect Four app by Chris Jones 2022/////
