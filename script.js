@@ -5,6 +5,7 @@ const btnInfo = document.querySelector('.btn-info');
 const infoPanel = document.querySelector('.info-panel');
 const btnCloseInfo = document.querySelector('.btn-close-info');
 const drawPanel = document.querySelector('.draw-panel');
+const btnCloseDraw = document.querySelector('.btn-close-draw');
 const overlay = document.querySelector('.overlay');
 const btnNew = document.querySelector('.btn-new');
 const player1 = document.querySelector('.player_1');
@@ -432,6 +433,12 @@ const checkWin = function () {
       }
     }
   }
+
+  // Call a draw if the grid is full with no winner
+  if (!gameGrid[0].includes(0)) {
+    gameActive = false;
+    openDraw();
+  }
 };
 
 const winCounters = function (coords) {
@@ -501,7 +508,10 @@ const closeInfo = function () {
 
 btnInfo.addEventListener('click', openInfo);
 btnCloseInfo.addEventListener('click', closeInfo);
-overlay.addEventListener('click', closeInfo);
+overlay.addEventListener('click', function () {
+  if (!infoPanel.classList.contains('hidden')) closeInfo();
+  if (!drawPanel.classList.contains('hidden')) closeDraw();
+}); // Closes for draw
 
 document.addEventListener('keydown', function (e) {
   if (
@@ -512,15 +522,29 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// Open draw panel
+// Open and close draw panel
 const openDraw = function () {
-  drawPanel.classList.remove('hidden');
-  overlay.classList.remove('hidden');
+  setTimeout(function () {
+    drawPanel.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+  }, 500);
 };
 
 const closeDraw = function () {
   drawPanel.classList.add('hidden');
   overlay.classList.add('hidden');
+  newGame();
 };
+
+btnCloseDraw.addEventListener('click', closeDraw);
+
+document.addEventListener('keydown', function (e) {
+  if (
+    (e.key === 'Escape' && !drawPanel.classList.contains('hidden')) ||
+    (e.key === 'Escape' && !overlay.classList.contains('hidden'))
+  ) {
+    closeDraw();
+  }
+});
 
 /////Connect Four app by Chris Jones 2022/////

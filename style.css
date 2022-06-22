@@ -265,3 +265,17 @@ a:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.btn-close-draw {
+  font-family: inherit;
+  color: #343333;
+  font-size: 3.25rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.btn-close-draw:hover {
+  text-decoration: underline;
+}

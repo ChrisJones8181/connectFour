@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="favIcon.png" />
   </head>
   <body>
-    <button class="btn-info">ⓘ</button>
+    <button class="btn-info">☰</button>
     <div class="page-container">
       <div class="player_1 outline_1">
         <h2 class="name">Player 1</h2>
@@ -158,6 +158,18 @@
         available space in that column. Each player takes it in turns to place a
         counter. Click the NEW GAME button to start a new game.
       </p>
+      <p class="info-content">
+        <input
+          type="radio"
+          id="single"
+          name="gameType"
+          value="single"
+          checked
+        />
+        <label for="single">Single player</label><br />
+        <input type="radio" id="two" name="gameType" value="two" />
+        <label for="two">Two player</label><br />
+      </p>
       <a
         href="https://github.com/ChrisJones8181/connectFour"
         target="_blank"
@@ -166,9 +178,10 @@
       >
     </div>
     <div class="draw-panel hidden">
-      <button class="btn-close-info">×</button>
       <h2 class="info-header">It's a draw!</h2>
-      <p class="info-content">Start a new game.</p>
+      <p class="info-content">
+        Start a new <button class="btn-close-draw">New game</button>.
+      </p>
     </div>
     <div class="overlay hidden"></div>
     <script src="script.js"></script>
