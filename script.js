@@ -8,6 +8,8 @@ const drawPanel = document.querySelector('.draw-panel');
 const btnCloseDraw = document.querySelector('.btn-close-draw');
 const overlay = document.querySelector('.overlay');
 const btnNew = document.querySelector('.btn-new');
+const singlePlayer = document.getElementById('single');
+const twoPlayer = document.getElementById('two');
 const player1 = document.querySelector('.player_1');
 const player2 = document.querySelector('.player_2');
 const column_0 = [...document.querySelectorAll('.column_0')];
@@ -40,7 +42,7 @@ let activePlayer = 1;
 let gameActive = true;
 let winCoords = [];
 let playerScore = [0, 0];
-let playBot = true; // Need to add a radio button for this in UI
+let playBot = true;
 
 // Listen for which column is clicked
 colArr.forEach(function (element) {
@@ -545,6 +547,17 @@ document.addEventListener('keydown', function (e) {
   ) {
     closeDraw();
   }
+});
+
+// Settings options
+singlePlayer.addEventListener('click', function () {
+  playBot = true;
+  newGame();
+});
+
+twoPlayer.addEventListener('click', function () {
+  playBot = false;
+  newGame();
 });
 
 /////Connect Four app by Chris Jones 2022/////
