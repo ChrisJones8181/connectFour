@@ -150,34 +150,57 @@
       </div>
     </div>
     <div class="info-panel hidden">
+      <div class="tab">
+        <button class="abo-tab-btn">About</button>
+        <button class="set-tab-btn">Settings</button>
+        <button class="cod-tab-btn">Code</button>
+      </div>
       <button class="btn-close-info">×</button>
-      <h2 class="info-header">Place four counters in a row to win</h2>
-      <p class="info-content">
-        You can make a horizontal, vertical, or diagonal row of four counters to
-        win a game. Click on a column to place your counter in the lowest
-        available space in that column. Each player takes it in turns to place a
-        counter. Click the NEW GAME button to start a new game.
-      </p>
-      <p class="info-content">
-        <input
-          type="radio"
-          id="single"
-          name="gameType"
-          value="single"
-          checked
-        />
-        <label for="single">Single player</label>
-      </p>
-      <p class="info-content">
-        <input type="radio" id="two" name="gameType" value="two" />
-        <label for="two">Two player</label>
-      </p>
-      <a
-        href="https://github.com/ChrisJones8181/connectFour"
-        target="_blank"
-        title="Go to GitHub"
-        >See the code</a
-      >
+      <div class="abo-tab">
+        <h2 class="info-header">Place four counters in a row to win</h2>
+        <p class="info-content">
+          You can make a horizontal, vertical, or diagonal row of four counters
+          to win a game. Click on a column to place your counter in the lowest
+          available space in that column. Each player takes it in turns to place
+          a counter. Click the NEW GAME button to start a new game.
+        </p>
+      </div>
+      <div class="set-tab hide">
+        <h2 class="info-header">Choose how to play</h2>
+        <p class="info-content">
+          Select single player to play the computer or two player to play a
+          friend.
+        </p>
+        <p class="info-content">
+          <label class="radio-btn" for="single"
+            >Single player
+            <input
+              type="radio"
+              id="single"
+              name="gameType"
+              value="single"
+              checked
+            />
+            <span class="checkmark"></span>
+          </label>
+        </p>
+        <p class="info-content">
+          <label class="radio-btn" for="two"
+            >Two player
+            <input type="radio" id="two" name="gameType" value="two" />
+            <span class="checkmark"></span>
+          </label>
+        </p>
+      </div>
+      <div class="cod-tab hide">
+        <h2 class="info-header">Code</h2>
+        <a
+          href="https://github.com/ChrisJones8181/connectFour"
+          target="_blank"
+          title="Go to GitHub"
+          >View the code.</a
+        >
+      </div>
     </div>
     <div class="draw-panel hidden">
       <h2 class="info-header">It's a draw!</h2>
@@ -186,6 +209,7 @@
       </p>
     </div>
     <div class="overlay hidden"></div>
+
     <script src="script.js"></script>
   </body>
 </html>

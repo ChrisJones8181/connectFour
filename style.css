@@ -46,6 +46,7 @@ body {
   box-shadow: 0 1.75rem 3.5rem #26272e;
   align-items: center;
   transition: all 0.2s;
+  margin-left: 1.2rem;
 }
 
 .player_2 {
@@ -61,6 +62,7 @@ body {
   box-shadow: 0 1.75rem 3.5rem #26272e;
   align-items: center;
   transition: all 0.2s;
+  margin-right: 1.2rem;
 }
 
 .outline_1 {
@@ -189,7 +191,23 @@ body {
   opacity: 0.6;
 }
 
-.info-panel,
+.info-panel {
+  position: fixed;
+  font-family: inherit;
+  color: #343333;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60rem;
+  height: 72rem;
+  background-color: #b4b5c1;
+  padding: 5rem 6rem;
+  border-radius: 2.5rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.5s;
+}
+
 .draw-panel {
   position: fixed;
   font-family: inherit;
@@ -204,6 +222,33 @@ body {
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: all 0.5s;
+}
+
+.tab {
+  overflow: hidden;
+  border-bottom: 1px solid #72758c;
+}
+
+.tab button {
+  font-family: inherit;
+  color: #343333;
+  font-size: 2.5rem;
+  background-color: inherit;
+  float: left;
+  border: none;
+  border-radius: 1.2rem 1.2rem 0rem 0rem;
+  outline: none;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #8e91a3;
+}
+
+.tab button.active {
+  background-color: #a1a3b2;
 }
 
 .overlay {
@@ -222,6 +267,7 @@ body {
   font-family: inherit;
   color: #343333;
   font-size: 4.5rem;
+  margin-top: 2rem;
   margin-bottom: 4.5rem;
   line-height: 1.5;
 }
@@ -278,4 +324,67 @@ a:hover {
 
 .btn-close-draw:hover {
   text-decoration: underline;
+}
+
+.hide {
+  display: none;
+}
+
+/* Radio buttons in info panel */
+.radio-btn {
+  display: block;
+  position: relative;
+  padding-left: 5rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+
+/* Hide the browser's default radio button */
+.radio-btn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* New radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #d0d1d8;
+  border-radius: 50%;
+}
+
+/* On hover add background colour */
+.radio-btn:hover input ~ .checkmark {
+  background-color: #a1a3b2;
+}
+
+/* When the radio button is selected, add a background colour */
+.radio-btn input:checked ~ .checkmark {
+  background-color: #363641;
+}
+
+/* Create the indicator the indicator dot and hide it when not selected */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator dot when selected */
+.radio-btn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator dot */
+.radio-btn .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d0d1d8;
 }

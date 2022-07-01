@@ -12,6 +12,14 @@ const singlePlayer = document.getElementById('single');
 const twoPlayer = document.getElementById('two');
 const player1 = document.querySelector('.player_1');
 const player2 = document.querySelector('.player_2');
+const aboutBtn = document.querySelector('.abo-tab-btn');
+const settingsBtn = document.querySelector('.set-tab-btn');
+const codeBtn = document.querySelector('.cod-tab-btn');
+const aboTab = document.querySelector('.abo-tab');
+const setTab = document.querySelector('.set-tab');
+const codTab = document.querySelector('.cod-tab');
+const tabBtns = [aboutBtn, settingsBtn, codeBtn];
+const allTabs = [aboTab, setTab, codTab];
 const column_0 = [...document.querySelectorAll('.column_0')];
 const column_1 = [...document.querySelectorAll('.column_1')];
 const column_2 = [...document.querySelectorAll('.column_2')];
@@ -77,27 +85,29 @@ const botAction = function () {
   let target = 0; // The column to place the counter in
   let actionTaken = false; // Status of this function to allow only one action
   // Check for 3 opisition counters in a row horizontally and block a fourth
-  for (let i = 0; i < gameGrid.length; i++) {
-    for (let j = 0; j < 7; j++) {
-      // Check there are 3 opposition counters in a row
-      if (
-        gameGrid[i][j] === 1 &&
-        gameGrid[i][j + 1] === 1 &&
-        gameGrid[i][j + 2] === 1
-      ) {
-        // Add a counter to the right if there is space in the grid
-        if (gameGrid[i][j + 3] === 0 && j <= 3) {
-          target = j + 3;
-          actionTaken = true;
-          addCounter(target);
-          break;
-        }
-        // Add a counter to the left if there is no space to the right
-        if (gameGrid[i][j - 1] === 0) {
-          target = j - 1;
-          actionTaken = true;
-          addCounter(target);
-          break;
+  if (actionTaken === false) {
+    for (let i = 0; i < gameGrid.length; i++) {
+      for (let j = 0; j < 7; j++) {
+        // Check there are 3 opposition counters in a row
+        if (
+          gameGrid[i][j] === 1 &&
+          gameGrid[i][j + 1] === 1 &&
+          gameGrid[i][j + 2] === 1
+        ) {
+          // Add a counter to the right if there is space in the grid
+          if (gameGrid[i][j + 3] === 0 && j <= 3) {
+            target = j + 3;
+            actionTaken = true;
+            addCounter(target);
+            break;
+          }
+          // Add a counter to the left if there is no space to the right
+          if (gameGrid[i][j - 1] === 0) {
+            target = j - 1;
+            actionTaken = true;
+            addCounter(target);
+            break;
+          }
         }
       }
     }
@@ -506,6 +516,7 @@ const openInfo = function () {
 const closeInfo = function () {
   infoPanel.classList.add('hidden');
   overlay.classList.add('hidden');
+  resetTabs();
 };
 
 btnInfo.addEventListener('click', openInfo);
@@ -523,6 +534,35 @@ document.addEventListener('keydown', function (e) {
     closeInfo();
   }
 });
+
+// Listen for which tab button is clicked in the info panel
+tabBtns.forEach(function (element) {
+  element.addEventListener('click', function () {
+    allTabs.forEach(function (el) {
+      el.classList.add('hide');
+    });
+    clearTabBtns();
+    const tab = element.className.slice(0, 3);
+    document.querySelector(`.${tab}-tab`).classList.remove('hide');
+    document.querySelector(`.${tab}-tab-btn`).classList.add('active');
+  });
+});
+
+// Reset the tabs when the info panel is closed
+const resetTabs = function () {
+  setTimeout(function () {
+    aboTab.classList.remove('hide');
+    setTab.classList.add('hide');
+    codTab.classList.add('hide');
+    clearTabBtns();
+  }, 1000);
+};
+
+const clearTabBtns = function () {
+  tabBtns.forEach(function (el) {
+    el.classList.remove('active');
+  });
+};
 
 // Open and close draw panel
 const openDraw = function () {
