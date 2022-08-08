@@ -601,4 +601,4 @@ twoPlayer.addEventListener('click', function () {
   newGame();
 });
 
-/////Connect Four app by Chris Jones 2022/////
+////Connect Four app by Chris Jones 2022////
