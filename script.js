@@ -81,6 +81,7 @@ btnNew.addEventListener('click', function () {
   newGame();
 });
 
+// Function to control how the bot plays
 const botAction = function () {
   let target = 0; // The column to place the counter in
   let actionTaken = false; // Status of this function to allow only one action
@@ -453,8 +454,8 @@ const checkWin = function () {
   }
 };
 
+// Highlight the winning 4 counters in the UI
 const winCounters = function (coords) {
-  // Highlight the winning 4 counters in the UI
   coords.forEach(function (_, i) {
     document
       .getElementById(`${coords[i][0]}${coords[i][1]}`)
